@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+while IFS='=' read -r name value ; do
+  if [[ $name == 'MYSQLCONF_'* ]]; then
+    name="${name/MYSQLCONF_/}"
+    name="${name,,}"
+    name="${name/__/\.}"
+    for f in $(find /opt/app-root/etc )
+    do 
+      if [ "$value" != "" ]
+      then
+        sed -i "/$name .*/$name ${value//\//\\/};/g" $f
+        echo " " >> $f
+      else
+        sed -i "/$name[ =].*/d" $f
+      fi
+    done
+  fi
+done < <(env)
+
