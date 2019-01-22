@@ -1,5 +1,5 @@
 
-FROM oondeo/alpine
+FROM quay.io/oondeo/alpine
 
 ENV SUMMARY="Mariadb (MYSQL) Image"	\
     DESCRIPTION="Mariadb (MYSQL) Image. The image use scripts and configurations compatible \
