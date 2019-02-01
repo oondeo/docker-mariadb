@@ -1,5 +1,6 @@
 
 FROM quay.io/oondeo/alpine
+ARG MARIADB_VERSION="10.2.19-r1"
 
 ENV SUMMARY="Mariadb (MYSQL) Image"	\
     DESCRIPTION="Mariadb (MYSQL) Image. The image use scripts and configurations compatible \
@@ -9,17 +10,17 @@ LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="mariadb" \
-      io.openshift.s2i.scripts-url=image:///usr/libexec/s2i/bin \
-      io.s2i.scripts-url=image:///usr/libexec/s2i/bin \
-      com.redhat.component="core" \
+      io.openshift.expose-services="3306:mysql" \
+      io.openshift.tags="database,mysql,mariadb,mariadb102,mariadb-102" \
+      com.redhat.component="mariadb" \
       name="oondeo/mariadb" \
-      version="10" \
-      release="2" \
+      version="${MARIADB_VERSION}" \
+      release="1" \
       maintainer="OONDEO <info@oondeo.es>"
 
-RUN apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client \
-    && rm -rf /etc/mysql && ln -s $HOME/../etc /etc/mysql \
-    && mkdir -p $HOME/../mysql && ln -s $HOME/../mysql /var/lib/mysql 
+RUN mkdir -p $HOME/../mysql && ln -s $HOME/../mysql /var/lib/mysql \
+    && apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client \
+    && rm -rf /etc/mysql && ln -s $HOME/../etc /etc/mysql  
 
 COPY etc $HOME/../etc  
 COPY s2i/bin $STI_SCRIPTS_PATH
