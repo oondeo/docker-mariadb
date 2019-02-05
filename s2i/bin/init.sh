@@ -96,7 +96,6 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 	_check_config "$@"
 	# Get config
 	DATADIR="$(_get_config 'datadir' "$@")"
-	echo $DATADIR
 	if [ ! -d "$DATADIR/mysql" ]; then
 		file_env 'MYSQL_ROOT_PASSWORD'
 		if [ -z "$MYSQL_ROOT_PASSWORD" -a -z "$MYSQL_ALLOW_EMPTY_PASSWORD" -a -z "$MYSQL_RANDOM_ROOT_PASSWORD" ]; then
