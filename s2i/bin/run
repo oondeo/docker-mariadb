@@ -1,6 +1,6 @@
 #!/bin/dash
 
-#set -o errexit
+set -e
 #export_vars=$(cgroup-limits) ; export $export_vars
 export DOCUMENTROOT=${DOCUMENTROOT:-/}
 export HOME=${HOME:-/opt/app-root/src}
@@ -23,5 +23,10 @@ STI_SCRIPTS_PATH=${STI_SCRIPTS_PATH:-/usr/libexec/s2i/bin}
 echo "Apply environment variables attributes"
 $STI_SCRIPTS_PATH/conf-mysql
 echo "Starting server"
-$STI_SCRIPTS_PATH/init.sh
-/usr/bin/mysqld
+if [ "$1" = "mysqld" ]
+then
+ $STI_SCRIPTS_PATH/init.sh $*
+ exec /usr/bin/mysqld
+else
+  exec $*
+fi

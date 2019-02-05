@@ -27,13 +27,13 @@ spec:
       description: Provides a databse.
       iconClass: icon-mysql-database
       openshift.io/display-name: MYSQL Latest
-      tags: hidden,mysql,mariadb,maria,mariadb-10.2,mariadb-10
-      version: "10.2"
+      tags: hidden,mysql,mariadb,maria,mariadb-10.3,mariadb-10
+      version: "10.3"
     from:
       kind: DockerImage
-      name: quay.io/oondeo/mariadb:10.2
+      name: docker.io/oondeo/mariadb:10.3
     importPolicy: {}
-    name: "10.2"
+    name: "10.3"
     referencePolicy:
       type: Source
 ---
@@ -64,12 +64,12 @@ spec:
       description: Provides a databse.
       iconClass: icon-mysql-database
       openshift.io/display-name: MYSQL Latest
-      tags: hidden,mysql,mariadb,maria,mariadb-10.2,mariadb-10
-      version: "10.2"
+      tags: hidden,mysql,mariadb,maria,mariadb-10.3,mariadb-10
+      version: "10.3"
     from:
       kind: DockerImage
-      name: quay.io/oondeo/mariadb:10.2
+      name: docker.io/oondeo/mariadb:10.3
     importPolicy: {}
-    name: "10.2"
+    name: "10.3"
     referencePolicy:
       type: Source      

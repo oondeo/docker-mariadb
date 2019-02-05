@@ -1,6 +1,6 @@
 
 FROM oondeo/alpine:3.9
-ARG MARIADB_VERSION="10.2.19-r1"
+ARG MARIADB_VERSION="10.3"
 
 ENV SUMMARY="Mariadb (MYSQL) Image"	\
     DESCRIPTION="Mariadb (MYSQL) Image. The image use scripts and configurations compatible \
@@ -11,7 +11,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="mariadb" \
       io.openshift.expose-services="3306:mysql" \
-      io.openshift.tags="database,mysql,mariadb,mariadb102,mariadb-102" \
+      io.openshift.tags="database,mysql,mariadb,mariadb102,mariadb-103" \
       com.redhat.component="mariadb" \
       name="oondeo/mariadb" \
       version="${MARIADB_VERSION}" \
@@ -21,9 +21,10 @@ LABEL summary="$SUMMARY" \
 USER root
 
 RUN mkdir -p $HOME/../mysql && ln -s $HOME/../mysql /var/lib/mysql \
+    && mkdir -p $HOME/../docker-entrypoint-initdb.d && ln -s $HOME/../docker-entrypoint-initdb.d /docker-entrypoint-initdb.d \
     && mkdir /run/mysqld && chown 1001 /run/mysqld && chmod 770 /run/mysqld \
-    && apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client \
-    && rm -rf /etc/mysql && ln -s $HOME/../etc /etc/mysql 
+    && apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client pwgen tzdata \
+    && rm -rf /etc/mysql /etc/my.cnf* && ln -s $HOME/../etc /etc/mysql && ln -s $HOME/../etc/my.cnf /etc/my.cnf
 
 COPY etc $HOME/../etc  
 COPY s2i/bin $STI_SCRIPTS_PATH
@@ -34,4 +35,4 @@ EXPOSE 3306
 
 USER 1001
 
-CMD [ "$STI_SCRIPTS_PATH/run" ]
+CMD [ "run","mysqld" ]
