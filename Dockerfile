@@ -18,6 +18,8 @@ LABEL summary="$SUMMARY" \
       release="1" \
       maintainer="OONDEO <info@oondeo.es>"
 
+USER root
+
 RUN mkdir -p $HOME/../mysql && ln -s $HOME/../mysql /var/lib/mysql \
     && mkdir /run/mysqld && chown 1001 /run/mysqld && chmod 770 /run/mysqld \
     && apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client \

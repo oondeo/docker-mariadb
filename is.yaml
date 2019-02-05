@@ -18,7 +18,7 @@ spec:
       tags: mysql,mariadb,maria
     from:
       kind: DockerImage
-      name: quay.io/oondeo/mariadb:latest
+      name: docker.io/oondeo/mariadb:latest
     importPolicy: {}
     name: "latest"
     referencePolicy:
@@ -55,7 +55,7 @@ spec:
       tags: mysql,mariadb,maria
     from:
       kind: DockerImage
-      name: quay.io/oondeo/mariadb:latest
+      name: docker.io/oondeo/mariadb:latest
     importPolicy: {}
     name: "latest"
     referencePolicy:
