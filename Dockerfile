@@ -1,5 +1,5 @@
 
-FROM quay.io/oondeo/alpine
+FROM oondeo/alpine:3.9
 ARG MARIADB_VERSION="10.2.19-r1"
 
 ENV SUMMARY="Mariadb (MYSQL) Image"	\
@@ -19,8 +19,9 @@ LABEL summary="$SUMMARY" \
       maintainer="OONDEO <info@oondeo.es>"
 
 RUN mkdir -p $HOME/../mysql && ln -s $HOME/../mysql /var/lib/mysql \
+    && mkdir /run/mysqld && chown 1001 /run/mysqld && chmod 770 /run/mysqld \
     && apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client \
-    && rm -rf /etc/mysql && ln -s $HOME/../etc /etc/mysql  
+    && rm -rf /etc/mysql && ln -s $HOME/../etc /etc/mysql 
 
 COPY etc $HOME/../etc  
 COPY s2i/bin $STI_SCRIPTS_PATH
