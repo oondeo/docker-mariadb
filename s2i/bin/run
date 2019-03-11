@@ -25,6 +25,7 @@ $STI_SCRIPTS_PATH/conf-mysql
 echo "Starting server"
 if [ "$1" = "mysqld" ]
 then
+ mkdir -p /opt/app-root/mysql/data
  $STI_SCRIPTS_PATH/init.sh $*
  exec /usr/bin/mysqld
 else

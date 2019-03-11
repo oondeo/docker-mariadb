@@ -20,7 +20,7 @@ LABEL summary="$SUMMARY" \
 
 USER root
 
-RUN mkdir -p $HOME/../mysql && ln -s $HOME/../mysql /var/lib/mysql \
+RUN mkdir -p $HOME/../mysql/data && ln -s $HOME/../mysql/data /var/lib/mysql \
     && mkdir -p $HOME/../docker-entrypoint-initdb.d && ln -s $HOME/../docker-entrypoint-initdb.d /docker-entrypoint-initdb.d \
     && mkdir /run/mysqld && chown 1001 /run/mysqld && chmod 770 /run/mysqld \
     && apk-install mariadb mariadb-server-utils mariadb-backup mariadb-client pwgen tzdata \
