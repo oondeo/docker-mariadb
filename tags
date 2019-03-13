@@ -1,0 +1,16 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/affa2f73/
+EOF	s2i/bin/usage	/^cat <<EOF$/;"	h
+EOM	s2i/bin/init.sh	/^		cat >&2 <<-EOM$/;"	h
+EOSQL	s2i/bin/init.sh	/^			"${mysql[@]}" <<-EOSQL$/;"	h
+EOSQL	s2i/bin/init.sh	/^			read -r -d '' rootCreate <<-EOSQL || true$/;"	h
+EOSQL	s2i/bin/init.sh	/^		"${mysql[@]}" <<-EOSQL$/;"	h
+_check_config	s2i/bin/init.sh	/^_check_config() {$/;"	f
+_get_config	s2i/bin/init.sh	/^_get_config() {$/;"	f
+file_env	s2i/bin/init.sh	/^file_env() {$/;"	f
+process_init_file	s2i/bin/init.sh	/^process_init_file() {$/;"	f

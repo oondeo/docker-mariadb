@@ -1,0 +1,12 @@
+
+# The MariaDB server
+[mysqld]
+skip-external-locking
+
+default_tmp_storage_engine=Aria
+innodb_fast_shutdown=0
+innodb_file_per_table=ON
+innodb_compression_algorithm=lzma
+innodb-compression-level=5
+innodb_compression_default=ON
+innodb_page_cleaners=2
