@@ -91,7 +91,6 @@ _get_config() {
 # 	exec gosu mysql "$BASH_SOURCE" "$@"
 # fi
 
-if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 	# still need to check config, container may have started with --user
 	_check_config "$@"
 	# Get config
@@ -105,10 +104,11 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 			# exit 1
 		fi
 
-		# mkdir -p "$DATADIR"
+		mkdir -p "$DATADIR"
+		cd "$DATADIR"
 
 		echo 'Initializing database'
-		mysql_install_db --skip-test-db --skip-name-resolve 
+		mysql_install_db --skip-test-db --skip-name-resolve --datadir="$DATADIR"
 		echo 'Database initialized'
 
 		SOCKET="$(_get_config 'socket' "$@")"
@@ -207,5 +207,5 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		echo 'MySQL init process done. Ready for start up.'
 		echo
 	fi
-fi
+
 

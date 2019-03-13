@@ -3,25 +3,25 @@
 MYSQL_CONF_PATH=${1:-/opt/app-root/etc/conf.d}
 
 while IFS='=' read -r NAME VALUE ; do
-  if [[ $NAME == 'MYSQLCONF_'* ]]; then
     #NAME="${NAME/MYSQLCONF_/}"
     NAME="${NAME,,}"
     NAME="${NAME/_d_/\.}"
     NAME="${NAME/_s_/\-}"
     FILE=${NAME%%__*}
     FILE_PATH="$MYSQL_CONF_PATH/$FILE.cnf"
-    if [ ! -f $FILE_PATH ]
+    NAME="${NAME##*__}"
+    echo $FILE_PATH
+    echo $NAME
+    if [ -f $FILE_PATH ]
     then
-      echo "[$FILE]" > $FILE_PATH
+      sed -i "/$NAME[ =].*/d" $FILE_PATH
+      if [ "$VALUE" != "" ]
+      then
+        #sed -i "/$NAME .*/$NAME ${VALUE//\//\\/};/g" $F
+        echo " " >> $FILE_PATH
+        echo "$NAME = $VALUE" >> $FILE_PATH
+        echo " " >> $FILE_PATH
+      fi
     fi
-    sed -i "/$NAME[ =].*/d" $FILE_PATH
-    if [ "$VALUE" != "" ]
-    then
-      #sed -i "/$NAME .*/$NAME ${VALUE//\//\\/};/g" $F
-      echo "$NAME = $VALUE" >> $FILE_PATH
-      echo " " >> $FILE_PATH
-    fi
-
-  fi
 done < <(env)
 

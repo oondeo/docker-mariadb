@@ -29,6 +29,8 @@ RUN mkdir -p $HOME/../mysql/data && ln -s $HOME/../mysql/data /var/lib/mysql \
 COPY etc $HOME/../etc  
 COPY s2i/bin $STI_SCRIPTS_PATH
 
+ENV DATADIR=/opt/app-root/mysql/data
+
 RUN /usr/bin/docker-footer
 
 EXPOSE 3306 
