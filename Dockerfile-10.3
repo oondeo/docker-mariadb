@@ -28,6 +28,7 @@ RUN mkdir -p $HOME/../mysql/data && ln -s $HOME/../mysql/data /var/lib/mysql \
 
 COPY etc $HOME/../etc  
 COPY s2i/bin $STI_SCRIPTS_PATH
+COPY mariadb-sys /usr/share/mariadb-sys
 
 ENV DATADIR=/opt/app-root/mysql/data
 

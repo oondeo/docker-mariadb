@@ -1,0 +1,3 @@
+[submodule "mariadb-sys"]
+	path = mariadb-sys
+	url = https://github.com/oondeo/mariadb-sys.git

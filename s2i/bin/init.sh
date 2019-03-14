@@ -151,6 +151,7 @@ _get_config() {
 				GRANT ALL ON *.* TO 'root'@'${MYSQL_ROOT_HOST}' WITH GRANT OPTION ;
 			EOSQL
 		fi
+	
 
 		"${mysql[@]}" <<-EOSQL
 			-- What's done in this file shouldn't be replicated
@@ -161,7 +162,7 @@ _get_config() {
 			GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION ;
 			${rootCreate}
 			DROP DATABASE IF EXISTS test ;
-			FLUSH PRIVILEGES ;
+			FLUSH PRIVILEGES ;		
 		EOSQL
 
 		if [ ! -z "$MYSQL_ROOT_PASSWORD" ]; then
@@ -198,6 +199,15 @@ _get_config() {
 				ALTER USER 'root'@'%' PASSWORD EXPIRE;
 			EOSQL
 		fi
+
+		echo "Install mariadb-sys"
+		cd /usr/share/mariadb-sys
+		"${mysql[@]}" <<-EOSQL
+			SOURCE ./mariadb_sys_install.sql ;
+			UPDATE performance_schema.setup_consumers SET ENABLED = 'NO';
+			UPDATE performance_schema.setup_instruments SET ENABLED = 'NO', TIMED = 'NO';	
+		EOSQL
+
 		if ! kill -s TERM "$pid" || ! wait "$pid"; then
 			echo >&2 'MySQL init process failed.'
 			exit 1
